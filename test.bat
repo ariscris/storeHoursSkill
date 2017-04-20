@@ -1,0 +1,1 @@
+lambda-local -l index.js -e event.js
