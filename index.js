@@ -30,8 +30,10 @@ var params = {
 const handlers = {    
     'OpeningHours': function () {
         console.log("Opening Hours");
-
+        console.log(gmAPI);
+        //console.log(params);
         gmAPI.placeDetails(params, function(err, result){
+            console.log("hre");
             console.log("err: " + err);
             console.log("result: " + result);
             console.log("is result ok: " + result.status);
@@ -45,33 +47,20 @@ const handlers = {
     'ClosingHours': function () {
         this.emit(':tell', '8:30 pm');
     },
-    'GetNewFactIntent': function () {
-        this.emit('GetFact');
-    },
-    'GetFact': function () {
-        // Get a random space fact from the space facts list
-        // Use this.t() to get corresponding language data
-        const factArr = this.t('FACTS');
-        const factIndex = Math.floor(Math.random() * factArr.length);
-        const randomFact = factArr[factIndex];
-
-        // Create speech output
-        const speechOutput = this.t('GET_FACT_MESSAGE') + randomFact;
-        this.emit(':tellWithCard', speechOutput, this.t('SKILL_NAME'), randomFact);
-    },
     'AMAZON.HelpIntent': function () {
-        const speechOutput = this.t('HELP_MESSAGE');
-        const reprompt = this.t('HELP_MESSAGE');
-        this.emit(':ask', speechOutput, reprompt);
+        // const speechOutput = this.t('HELP_MESSAGE');
+        // const reprompt = this.t('HELP_MESSAGE');
+        // this.emit(':ask', speechOutput, reprompt);
+        this.emit(':tell', 'Try saying what time does Target open');
     },
     'AMAZON.CancelIntent': function () {
-        this.emit(':tell', this.t('STOP_MESSAGE'));
+        this.emit(':tell', 'Goodbye!');
     },
     'AMAZON.StopIntent': function () {
-        this.emit(':tell', this.t('STOP_MESSAGE'));
+        this.emit(':tell', 'Goodbye!');
     },
     'SessionEndedRequest': function () {
-        this.emit(':tell', this.t('STOP_MESSAGE'));
+        this.emit(':tell', 'Goodbye!');
     },
 };
 
